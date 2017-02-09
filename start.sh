@@ -20,7 +20,7 @@ glusterrest usermod ${ROOTUSER} -g glusteradmin
 
 if [ $(gluster peer status | head -n 1 | awk '{print $4}') -eq 0 ] && env | grep -q "PEER_DISCOVERY_NAME" ; then
   FIRST_PEER=$(getent hosts tasks.${PEER_DISCOVERY_NAME} | awk '{ print $1 }' | sort | grep -v ${IP_ADDRESS} | head -n 1)
-  wait-for-it.sh ${FIRST_PEER}:9000 && curl -X POST http://${ROOTUSER}:${ROOTPASS}@${FIRST_PEER}:9000/api/1.0/peer/${IP_ADDRESS}
+  wait-for-it.sh -t 90 ${FIRST_PEER}:9000 && curl -X POST http://${ROOTUSER}:${ROOTPASS}@${FIRST_PEER}:9000/api/1.0/peer/${IP_ADDRESS}
 fi
 
 wait

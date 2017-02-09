@@ -14,8 +14,7 @@ RUN apt-get update && \
     glusterrest useradd root -g glusteradmin -p root
 
 
-HEALTHCHECK --interval=5m --timeout=3s \
-  CMD curl -sLi root:root@localhost:9000/api/1.0/volumes | grep '"ok": true' || exit 1
+HEALTHCHECK CMD curl -sLi root:root@localhost:9000/api/1.0/volumes | grep '"ok": true' || exit 1
 
 EXPOSE 24007 24008 49152 38465 38466 38467
 
