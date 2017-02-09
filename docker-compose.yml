@@ -1,0 +1,28 @@
+version: "3"
+services:
+  server:
+    image: pinked/docker-glusterfs
+    networks:
+      - storage
+      - default
+    deploy:
+      mode: replicated
+      replicas: 3
+      labels:
+        - com.df.notify=true
+        - com.df.distribute=true
+        - com.df.serviceDomain=gluster.p.cns.me
+        - com.df.servicePath=/
+        - com.df.port=9000
+    volumes:
+      - /brick:/brick/
+    environment:
+      - ROOTUSER=root
+      - ROOTPASS=true
+      - PEER_DISCOVERY_NAME=server
+
+networks:
+  storage:
+    external: true
+  default:
+    external: false
