@@ -6,8 +6,10 @@ services:
       - storage
       - default
     deploy:
-      mode: replicated
-      replicas: 3
+      mode: global
+      restart_policy:
+        condition: any
+        delay: 5s
       labels:
         - com.df.notify=true
         - com.df.distribute=true
