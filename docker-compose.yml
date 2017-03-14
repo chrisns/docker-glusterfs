@@ -4,7 +4,7 @@ services:
     image: pinked/docker-glusterfs
     networks:
       - storage
-      - default
+      - proxy
     deploy:
       mode: global
       restart_policy:
@@ -26,5 +26,5 @@ services:
 networks:
   storage:
     external: true
-  default:
-    external: false
+  proxy:
+    external: true
